@@ -31,6 +31,14 @@ def get_user_by_id(user_id):
             return user
     return None
 
+def get_password_hash(username):
+    db = load_db()
+    user = db["users"].get(username)
+    
+    if user:
+        return user["password_hash"]
+    
+    return None
 
 # ─── resources ─────────────────────────────────────────
 
