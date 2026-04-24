@@ -1,28 +1,143 @@
 {
-  "users": {
-    "alice": {
+  "metadata": {
+    "version": "1.0",
+    "app": "SecureCorp Zero-Trust",
+    "last_updated": "2026-04-18"
+  },
+
+  "users": [
+    {
       "id": 1,
-      "password_hash": "hashed_pw",
+      "username": "alice",
+      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d",
       "role": "Admin",
       "department": "IT",
       "clearance": "secret",
-      "location": "internal"
+      "location": "internal",
+      "active": true
     },
-    "bob": {
+    {
       "id": 2,
-      "password_hash": "hashed_pw",
+      "username": "bob",
+      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d",
       "role": "Manager",
       "department": "HR",
       "clearance": "confidential",
-      "location": "internal"
+      "location": "internal",
+      "active": true
     },
-    "charlie": {
+    {
       "id": 3,
-      "password_hash": "hashed_pw",
+      "username": "charlie",
+      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d",
       "role": "Employee",
       "department": "Finance",
       "clearance": "public",
-      "location": "external"
+      "location": "external",
+      "active": true
+    },
+    {
+      "id": 4,
+      "username": "diana",
+      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d",
+      "role": "Employee",
+      "department": "HR",
+      "clearance": "confidential",
+      "location": "internal",
+      "active": true
+    },
+    {
+      "id": 5,
+      "username": "eve",
+      "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d",
+      "role": "Manager",
+      "department": "IT",
+      "clearance": "secret",
+      "location": "external",
+      "active": false
     }
-  }
+  ],
+
+  "roles": [
+    {
+      "name": "Admin",
+      "level": 3,
+      "permissions": ["read", "write", "delete"],
+      "can_access_departments": ["HR", "Finance", "IT", "Operations"],
+      "description": "Full access to all resources"
+    },
+    {
+      "name": "Manager",
+      "level": 2,
+      "permissions": ["read", "write"],
+      "can_access_departments": "own_only",
+      "description": "Read and write in own department"
+    },
+    {
+      "name": "Employee",
+      "level": 1,
+      "permissions": ["read"],
+      "can_access_departments": "own_only",
+      "description": "Read only in own department"
+    }
+  ],
+
+  "departments": [
+    { "name": "HR",         "description": "Human Resources" },
+    { "name": "Finance",    "description": "Financial department" },
+    { "name": "IT",         "description": "Information Technology" },
+    { "name": "Operations", "description": "Operations department" }
+  ],
+
+  "resources": [
+    {
+      "id": "res_001",
+      "name": "HR File",
+      "type": "document",
+      "department": "HR",
+      "classification": "confidential",
+      "owner_id": 2,
+      "description": "Employee personal files"
+    },
+    {
+      "id": "res_002",
+      "name": "Finance Report Q1",
+      "type": "report",
+      "department": "Finance",
+      "classification": "secret",
+      "owner_id": 3,
+      "description": "Quarterly financial report"
+    },
+    {
+      "id": "res_003",
+      "name": "IT Dashboard",
+      "type": "dashboard",
+      "department": "IT",
+      "classification": "public",
+      "owner_id": 1,
+      "description": "System monitoring dashboard"
+    },
+    {
+      "id": "res_004",
+      "name": "Operations Manual",
+      "type": "document",
+      "department": "Operations",
+      "classification": "confidential",
+      "owner_id": 1,
+      "description": "Internal operations procedures"
+    },
+    {
+      "id": "res_005",
+      "name": "HR Salary Grid",
+      "type": "spreadsheet",
+      "department": "HR",
+      "classification": "secret",
+      "owner_id": 2,
+      "description": "Employee salary information"
+    }
+  ],
+
+  "auth_logs": [],
+
+  "access_logs": []
 }
