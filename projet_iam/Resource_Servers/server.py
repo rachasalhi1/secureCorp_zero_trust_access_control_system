@@ -16,11 +16,15 @@ class RessourceServer(BaseHTTPRequestHandler):
             encrypted_authticator=data["encrypted_authticator"] 
             result,respons=verifying_data(encrypted_service_ticket, encrypted_authticator)
            
-            if result==True :
-                response = {
+            result_pdp=call_pdp(encrypted_service_ticket,encrypted_authticator)
+
+            if (result_pdp["success"]=="access_granted"):
+                if result==True :
+                 response = {
                     "success": True,
                      "encrypted_timestamp":respons["encrypted_timestamp"]
                 }
+            
 
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
