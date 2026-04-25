@@ -1,0 +1,28 @@
+{
+  "users": {
+    "alice": {
+      "id": 1,
+      "password_hash": "hashed_pw",
+      "role": "Admin",
+      "department": "IT",
+      "clearance": "secret",
+      "location": "internal"
+    },
+    "bob": {
+      "id": 2,
+      "password_hash": "hashed_pw",
+      "role": "Manager",
+      "department": "HR",
+      "clearance": "confidential",
+      "location": "internal"
+    },
+    "charlie": {
+      "id": 3,
+      "password_hash": "hashed_pw",
+      "role": "Employee",
+      "department": "Finance",
+      "clearance": "public",
+      "location": "external"
+    }
+  }
+}

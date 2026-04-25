@@ -1,0 +1,94 @@
+{
+  "policies": [
+
+    {
+      "id": "admin_full_access",
+      "description": "Admins have full access to everything",
+      "effect": "ALLOW",
+      "priority": 1,
+      "conditions": {
+        "user.role": "Admin"
+      }
+    },
+
+    {
+      "id": "deny_external_secret",
+      "description": "Deny access to secret resources from external locations",
+      "effect": "DENY",
+      "priority": 2,
+      "conditions": {
+        "resource.classification": "secret",
+        "user.location": "external"
+      }
+    },
+
+    {
+      "id": "deny_delete_non_admin",
+      "description": "Only admins can delete — employees and managers cannot",
+      "effect": "DENY",
+      "priority": 3,
+      "conditions": {
+        "action": ["delete"],
+        "user.role": ["Employee", "Manager"]
+      }
+    },
+
+    {
+      "id": "manager_read_write_same_department",
+      "description": "Managers can read/write resources in their own department",
+      "effect": "ALLOW",
+      "priority": 4,
+      "conditions": {
+        "user.role": "Manager",
+        "user.department_equals_resource": true,
+        "action": ["read", "write"]
+      }
+    },
+
+    {
+      "id": "employee_read_only",
+      "description": "Employees can only read resources in their own department",
+      "effect": "ALLOW",
+      "priority": 5,
+      "conditions": {
+        "user.role": "Employee",
+        "user.department_equals_resource": true,
+        "action": ["read"]
+      }
+    },
+
+    {
+      "id": "deny_cross_department",
+      "description": "Users cannot access resources from other departments",
+      "effect": "DENY",
+      "priority": 6,
+      "conditions": {
+        "user.department_equals_resource": false
+      }
+    },
+
+    {
+      "id": "deny_outside_working_hours",
+      "description": "Deny access to confidential/secret resources outside 08:00-18:00",
+      "effect": "DENY",
+      "priority": 7,
+      "conditions": {
+        "environment.outside_working_hours": true,
+        "resource.classification": ["confidential", "secret"]
+      }
+    },
+
+    {
+      "id": "deny_insufficient_clearance",
+      "description": "Deny if user clearance is lower than resource classification",
+      "effect": "DENY",
+      "priority": 8,
+      "conditions": {
+        "user.clearance_sufficient": false
+      }
+    }
+
+  ],
+
+  "default": "DENY"
+}
