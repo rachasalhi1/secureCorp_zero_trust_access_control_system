@@ -5,8 +5,19 @@ TICKET_LIFETIME = 300
 ktgs=""
 ks=""
 ks_session_key=""
+def is_ticket_valid(ticket):
+    current = time.time()
+
+    if current > ticket["expiry"]:
+        return False   # expired
+
+    return True  
+
 def verfifying_tgt_and_authnticator(encryped_tgt,encrypted_authticator):
   tgt=decrypt(encryped_tgt,ktgs)
+  validation=is_ticket_valid(tgt)
+  if (validation==False):
+     return False
   k_u_tgs=tgt["key_user_tgs"]
   authticator=decrypt(encrypted_authticator,k_u_tgs)
   username_from_auth=authticator["username"]
